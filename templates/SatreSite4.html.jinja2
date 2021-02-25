@@ -1,0 +1,42 @@
+<!doctype html> <!-- modern html-->
+
+<html>
+ <head>
+  <title>Maria's Cars</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- looks good on cell phones -->
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/hompage_styles.css">
+
+  <script src="../static/jss/jquery-3.5.1.js"></script>
+    <script>
+
+      $(document).ready(function(){
+	  // ALL YOUR CODE HERE
+	  $("li").click(function(){
+       $(this).replaceWith(("I actually don't know anything about cars but I think they look cool!"));
+	  });
+	  //END YOUR CODE
+      });
+
+    </script>
+
+ </head>
+
+ <body>
+<h1>Maria's favorite cars:</h1>
+
+<ol>
+ <li>2015 {{cars[0]}} (my own car that my brother currently has taken from me)</li>
+ <li>{{cars[1]}} (don't ask me why I think it looks cool)</li>
+ <li>1997 {{cars[2]}} (only with pop up headlights)</li>
+</ol>
+
+<h2 id = "car-title">My favorite cars</h2>
+  <img src ="../static/images/Crv.png" alt="Where's my car!" width="500" height="300">
+  <img src="../static/images/car1.jpg" alt= "A car!" width="300" height="300">
+  <img src="../static/images/car2.jpg" alt= "A car!" width="450" height="300">
+<p>
+<a href="/1.html">Go Back Home</a>
+</p>
+</body>
+</html>

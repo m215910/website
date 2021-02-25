@@ -1,0 +1,80 @@
+<!doctype html> <!-- modern html-->
+
+<html>
+ <head>
+  <title>Maria's Tv Shows</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- looks good on cell phones -->
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/hompage_styles.css">
+
+  <script src="../static/jss/jquery-3.5.1.js"></script>
+    <script>
+
+      $(document).ready(function(){
+	  // ALL YOUR CODE HERE
+	  $("p").click(function(){
+       $(this).css("background","lightblue");
+       console.log("A paragraph was clicked!");
+	  })
+	  //END YOUR CODE
+      });
+
+    </script>
+
+ </head>
+
+<body>
+<h1> My favorite shows on Netflix:</h1>
+<button> Click me to hide shows! </button>
+
+<div class ="container">
+  <div class="row">
+  <div class = 'col' >
+  <div class="card" style="width: 18rem;">
+    <img src="../static/images/peaky-blinders.jpg" class="card-img-top" alt="Where's my show!">
+  <div class="card-body">
+    <h5 class="card-title">Peaky Blinders</h5>
+    <p class="card-text">A gangster family epic set in 1900s England, centering on a gang who sew razor
+     blades in the peaks of their caps, and their fierce boss Tommy Shelby.</p>
+    <a href="https://www.imdb.com/title/tt2442560/" class="btn btn-primary">Visit it's imdb site</a>
+  </div>
+  </div>
+  </div>
+
+  <div class = 'col' >
+  <div class="card" style="width: 18rem;">
+  <img src="../static/images/bridge.jpg" class="card-img-top" alt="Where's my show!">
+  <div class="card-body">
+    <h5 class="card-title">Bridgerton</h5>
+    <p class="card-text">Bridgerton is an American streaming television period drama series created by Chris Van Dusen and produced by Shonda Rhimes. It is based on Julia Quinn's novels set in the competitive world of Regency era London's Ton during the season, when debutantes are presented at court.</p>
+    <a href="https://en.wikipedia.org/wiki/Bridgerton" class="btn btn-primary">Visit it's wiki site</a>
+  </div>
+  </div>
+  </div>
+
+ <div class = 'col' >
+ <div class="card" style="width: 18rem;">
+  <img src="../static/images/off.jpg" class="card-img-top" alt="Where's my show!">
+  <div class="card-body">
+    <h5 class="card-title">The Office</h5>
+    <p class="card-text">The Office is a mockumentary sitcom that was first made in the United Kingdom and subsequently remade in many other countries.
+        According to Nielsen as of April 2019, the US version of The Office is the No. 1 streamed show on Netflix in the United States.</p>
+    <a href="https://en.wikipedia.org/wiki/The_Office" class="btn btn-primary">Visit it's wiki site</a>
+  </div>
+  </div>
+  </div>
+</div>
+</div>
+<h2>To Get Home!</h2>
+<p>
+<a href="/1.html">Go Back Home</a>
+</p>
+
+<script>
+    $("button").click(function() {
+        $("div").hide("slow");
+        });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+body{
+	background-color:#f0dfdf;
+}
+h1 {
+	color: darkblue;
+    font-size: xxx-large;
+    border-width: thick;
+    align-content: center;
+	font-family: "Lucida Handwriting", cursive
+}
+
+h2 {
+	color: darkblue;
+    font-family: "Lucida Handwriting", cursive;
+}
+#title {
+	text-align: center;
+}
+#intro {
+	color: #80e5ff;
+	text-align: center;
+}
+#car-title{
+	color: purple;
+}
+.book-title{
+	color: black;
+}
+#website-title{
+	color: red;
+}
+.important{
+	background: yellow;
+}
+p.important{
+	background: orange;
+}
+.secret {
+	border-color: red;
+	border-style: solid ;
+}
+ol {
+	font-family: fantasy;
+}

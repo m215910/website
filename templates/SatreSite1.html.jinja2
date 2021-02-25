@@ -1,0 +1,74 @@
+<!doctype html> <!-- modern html-->
+
+<html>
+ <head>
+  <title>Maria Intro Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- looks good on cell phones -->
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/hompage_styles.css">
+
+  <script src="../static/jss/jquery-3.5.1.js"></script>
+    <script>
+
+      $(document).ready(function(){
+	  // ALL YOUR CODE HERE
+	  $("p").click(function(){
+       $(this).css("background","lightblue");
+       console.log("A paragraph was clicked!");
+	  })
+	  //END YOUR CODE
+      });
+
+    </script>
+ </head> <!-- comment in html -->
+
+ <body>
+  <h1 id = "title"> All Things Maria </h1>
+
+  <p class ='intro'> My name is Maria Satre. I will be using this website to display some of my favorite things.
+  If you would like to learn more about me please explore this and the subsequent pages.</p>
+
+  <p> The current time:</p>
+  <p id="demo"></p>
+
+  <script>
+   var clock = setInterval(ticktock, 1000);
+   function ticktock(){
+    var d = new Date();
+    var t = d.toLocaleTimeString();
+    document.getElementById("demo").innerHTML = t;
+   }
+  </script>
+
+  <h2 class="book-title">My Hobbies</h2>
+  <p> Some of my major hobbies are listed below. These are the things I spend most of my time doing.</p>
+  <ul class="list-group">
+      {% for hobbie in hobbies %}
+   <li class ="list-group-item">{{ hobbie }} </li>
+      {% endfor %}
+  </ul>
+
+  <h2 class = "book-title">My family</h2>
+  <img src ="../static/images/mom.jpg" alt="Where's my car!" width="350" height="300">
+  <img src="../static/images/dad.jpg" alt= "A car!" width="350" height="350">
+  <img src="../static/images/will.jpg" alt= "A car!" width="275" height="350">
+
+  <h2 class = "book-title">My friends</h2>
+  <img src ="../static/images/g.jpg" alt="Where's my car!" width="350" height="350">
+  <img src="../static/images/room.jpg" alt= "A car!" width="375" height="300">
+  <img src="../static/images/squad.jpg" alt= "A car!" width="400" height="300">
+
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Welcome!</strong> Visit these sites to learn more!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <ul>
+   <li><a href="/2.html">My favorite shows on Netflix</a></li>
+   <li><a href="/3.html">My favorite books</a></li>
+   <li><a href="/4.html">My favorite cars</a></li>
+  </ul>
+  <div>Footer</div>
+
+ </body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html> <!-- modern html-->
+
+<html>
+ <head>
+  <title>Maria's Books</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- looks good on cell phones -->
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/hompage_styles.css">
+
+  <script src="../static/jss/jquery-3.5.1.js"></script>
+    <script>
+
+      $(document).ready(function(){
+	  // ALL YOUR CODE HERE
+	  $("img").click(function(){
+       $(this).slideUp();
+	  });
+	  //END YOUR CODE
+      });
+    </script>
+
+ </head>
+
+ <body>
+<h1> My favorite books:</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">Synopsis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Harry Potter</td>
+      <td>J.K. Rowling</td>
+      <td>Harry Potter is a series of seven fantasy novels written by British author, J. K. Rowling.
+          The novels chronicle the lives of a young wizard, Harry Potter, and his friends Hermione Granger and
+          Ron Weasley, all of whom are students at Hogwarts School of Witchcraft and Wizardry.
+          The main story arc concerns Harry's struggle against Lord Voldemort, a dark wizard who intends to
+          become immortal, overthrow the wizard governing body known as the Ministry of Magic and subjugate all
+          wizards and Muggles (non-magical people).</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Throne of Glass</td>
+      <td>Sarah J. Maas</td>
+      <td>Throne of Glass is a young adult high fantasy novel series by American author Sarah J. Maas,
+          beginning with Throne of Glass, released in August 2012. The story follows the journey of Celaena
+          Sardothien, a teenage assassin in a corrupt kingdom with a tyrannical ruler, The King of Adarlan.
+          As the tale progresses, Celaena forms unexpected bonds and uncovers a conspiracy amidst her adventures.</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Percy Jackson</td>
+      <td>Rick Riordan</td>
+      <td>Percy Jackson & the Olympians, often shortened to Percy Jackson or PJO, is a pentalogy of fantasy
+          adventure novels written by American author Rick Riordan, and the first book series in the Camp
+          Half-Blood Chronicles.[4] Five supplementary books, along with graphic novel versions of each book
+          in the first series have also been released. More than 69 million copies of the books have been sold
+          in more than 35 countries.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id = "book-title"> My Favorite book is </h2>
+{% if favBook == 0 %}
+<h2>Harry Potter!</h2>
+{% endif %}
+{% if favBook == 1 %}
+<h2>Throne of Glass!</h2>
+{% endif %}
+{% if favBook == 2 %}
+<h2>Percy Jackson!</h2>
+{% endif %}
+
+  <img src = "../static/images/hp.jpg" alt="Where's my book!" width="200" height="250">
+  <img src="../static/images/tog.jpg" alt= "A book!" width="200" height="250">
+  <img src="../static/images/pj.jpg" alt= "A book!" width="200" height="250">
+
+<p>
+<a href="/1.html">Go Back Home</a>
+</p>
+</body>
+</html>
