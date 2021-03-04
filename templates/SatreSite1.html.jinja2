@@ -25,6 +25,13 @@
  <body>
   <h1 id = "title"> All Things Maria </h1>
 
+  <h1>Here are the tweets</h1>
+  <ul>
+     {%  for tweet in tweets %}
+        <li> {{ tweet[0] }}</li>
+     {%  endfor %}
+  </ul>
+
   <p class ='intro'> My name is Maria Satre. I will be using this website to display some of my favorite things.
   If you would like to learn more about me please explore this and the subsequent pages.</p>
 
