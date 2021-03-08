@@ -40,6 +40,18 @@ async def maria4(request):
         "cars": ["Honda CRV","Porsche 911","Mazda Miata"]
             }
 
+async def add_tweet(request):
+    data = await request.post()
+    content = data['content']
+    query = "INSERT INTO tweets (content, likes) VALUES (\"%s\",0)" % content
+    print("Query: %s" % query)
+    conn = sqlite3.connect('database1.db')
+    cursor = conn.cursor()
+    cursor.execute(query)
+    conn.commit()
+    print("The user tweeted %s" % data['content'])
+    raise web.HTTPFound('/')
+
 def main():
 
 
@@ -51,6 +63,7 @@ def main():
                     web.get('/2.html', maria2),
                     web.get('/3.html', maria3),
                     web.get('/4.html', maria4),
+                    web.post('/tweet',add_tweet),
                     web.static('/static','static')])
     print("Webserver 1.0")
     web.run_app(app, host="0.0.0.0", port=80)

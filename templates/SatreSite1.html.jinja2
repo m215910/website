@@ -28,9 +28,13 @@
   <h1>Here are the tweets</h1>
   <ul>
      {%  for tweet in tweets %}
-        <li> {{ tweet[0] }}</li>
+         <li> {{ tweet[0] }}</li><a class="btn btn-primary" href="/like?id={{ tweet[4] }}">Like!</a>
      {%  endfor %}
   </ul>
+  <form action="/tweet" method="post">
+      <input name="content" type = "text">
+      <input type = "submit" value="Tweet It!">
+  </form>
 
   <p class ='intro'> My name is Maria Satre. I will be using this website to display some of my favorite things.
   If you would like to learn more about me please explore this and the subsequent pages.</p>
