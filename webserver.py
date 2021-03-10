@@ -52,6 +52,17 @@ async def add_tweet(request):
     print("The user tweeted %s" % data['content'])
     raise web.HTTPFound('/')
 
+async def like(request):
+    conn = sqlite3.connect('database1.db')
+    cursor = conn.cursor()
+    tweet_id = request.query['id']
+    cursor.execute("SELECT likes FROM tweets WHERE id=%s" % tweet_id)
+    like_count = cursor.fetchone()[0]
+    cursor.execute("UPDATE tweets SET likes=%d WHERE id=%s" % (like_count +1, id))
+    conn.commit()
+    conn.close()
+    raise web.HTTPFound('/')
+
 def main():
 
 
@@ -64,9 +75,10 @@ def main():
                     web.get('/3.html', maria3),
                     web.get('/4.html', maria4),
                     web.post('/tweet',add_tweet),
+                    web.get('/like', like),
                     web.static('/static','static')])
     print("Webserver 1.0")
-    web.run_app(app, host="0.0.0.0", port=80)
+    web.run_app(app, host="127.0.0.1", port=3000)
 
 if __name__=="__main__":
     main()
