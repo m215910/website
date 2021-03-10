@@ -28,7 +28,8 @@
   <h1>Here are the tweets</h1>
   <ul>
      {%  for tweet in tweets %}
-         <li> {{ tweet[0] }}</li><a class="btn btn-primary" href="/like?id={{ tweet[4] }}">Like!</a>
+         <li> {{ tweet[0] }} </li><a class="btn btn-primary" href="/like?id={{ tweet[4] }}">Like!</a>
+         <p> likes: {{ tweet[2] }} </p>
      {%  endfor %}
   </ul>
   <form action="/tweet" method="post">
