@@ -58,7 +58,7 @@ async def like(request):
     tweet_id = request.query['id']
     cursor.execute("SELECT likes FROM tweets WHERE id=%s" % tweet_id)
     like_count = cursor.fetchone()[0]
-    cursor.execute("UPDATE tweets SET likes=%d WHERE id=%s" % (like_count +1, id))
+    cursor.execute("UPDATE tweets SET likes=%d WHERE id=%s" % (like_count + 1, tweet_id))
     conn.commit()
     conn.close()
     raise web.HTTPFound('/')
