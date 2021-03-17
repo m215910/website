@@ -5,6 +5,7 @@ import aiohttp_jinja2
 import jinja2
 from random import randint
 import sqlite3
+import requests
 
     #    with open("templates/hello_world.html.jinja2", "r") as file:
         #contents = file.read()
@@ -40,28 +41,52 @@ async def maria4(request):
         "cars": ["Honda CRV","Porsche 911","Mazda Miata"]
             }
 
+def get_location(ip_address):
+    api_key = "fd0329babd7f4167ca8ff84646e1bfc2"
+    result = requests.get("http://api.ipstack.com/%s?access_key=%s" % (ip_address, api_key))
+    ip_address_info = result.json()
+    #flag = ip_address_info['country_flag_emoji_unicode']
+    city = ip_address_info["city"]
+    region_code = ip_address_info["region_code"]
+    country_name = ip_address_info["country_name"]
+    return "%s, %s, %s" % (city, region_code, country_name)
+
 async def add_tweet(request):
     data = await request.post()
+    user_ip = request.remote
+    print("User is coming from %s" % user_ip)
+    user_location = get_location(user_ip)
+    print("You are at: %s" % user_location)
     content = data['content']
-    query = "INSERT INTO tweets (content, likes) VALUES (\"%s\",0)" % content
-    print("Query: %s" % query)
     conn = sqlite3.connect('database1.db')
     cursor = conn.cursor()
-    cursor.execute(query)
+    cursor.execute("INSERT INTO tweets (content, likes) VALUES (?,0)", (content,))
+    cursor.execute("UPDATE tweets SET location=?", (user_location,))
     conn.commit()
     print("The user tweeted %s" % data['content'])
     raise web.HTTPFound('/')
 
-async def like(request):
+def like(request):
     conn = sqlite3.connect('database1.db')
     cursor = conn.cursor()
     tweet_id = request.query['id']
-    cursor.execute("SELECT likes FROM tweets WHERE id=%s" % tweet_id)
+    cursor.execute("SELECT likes FROM tweets WHERE id=?", (tweet_id,))
     like_count = cursor.fetchone()[0]
-    cursor.execute("UPDATE tweets SET likes=%d WHERE id=%s" % (like_count + 1, tweet_id))
+    cursor.execute("UPDATE tweets SET likes=? WHERE id=?", (like_count + 1, tweet_id))
     conn.commit()
     conn.close()
     raise web.HTTPFound('/')
+
+async def like_json(request):
+    conn = sqlite3.connect('database1.db')
+    cursor = conn.cursor()
+    tweet_id = request.query['id']
+    cursor.execute("SELECT likes FROM tweets WHERE id=?", (tweet_id,))
+    like_count = cursor.fetchone()[0]
+    cursor.execute("UPDATE tweets SET likes=? WHERE id=?", (like_count + 1, tweet_id))
+    conn.commit()
+    conn.close()
+    return web.json_response(data={"like_count": like_count+1})
 
 def main():
 
@@ -76,9 +101,10 @@ def main():
                     web.get('/4.html', maria4),
                     web.post('/tweet',add_tweet),
                     web.get('/like', like),
+                    web.get('/like.json',like_json),
                     web.static('/static','static')])
     print("Webserver 1.0")
-    web.run_app(app, host="0.0.0.0", port=80)
+    web.run_app(app, host="127.0.0.1", port=3000)
 
 if __name__=="__main__":
     main()
