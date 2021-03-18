@@ -54,14 +54,15 @@ def get_location(ip_address):
 async def add_tweet(request):
     data = await request.post()
     user_ip = request.remote
+    #user_ip = "8.8.8.8"
     print("User is coming from %s" % user_ip)
     user_location = get_location(user_ip)
     print("You are at: %s" % user_location)
     content = data['content']
     conn = sqlite3.connect('database1.db')
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO tweets (content, likes) VALUES (?,0)", (content,))
-    cursor.execute("UPDATE tweets SET location=?", (user_location,))
+    cursor.execute("INSERT INTO tweets (content, likes, location) VALUES (?,0,?)", (content,user_location))
+    #cursor.execute("UPDATE tweets SET location=?", (user_location,))
     conn.commit()
     print("The user tweeted %s" % data['content'])
     raise web.HTTPFound('/')
