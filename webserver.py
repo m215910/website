@@ -14,16 +14,20 @@ import requests
     #     contents = file.read()
     #     file.close()
 
-@aiohttp_jinja2.template('SatreSite1.html.jinja2')
+#@aiohttp_jinja2.template('SatreSite1.html.jinja2')
 async def maria1(request):
     conn = sqlite3.connect('database1.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM tweets ORDER BY likes DESC")  # DESC or ASC
     results = cursor.fetchall()
-    conn.close()
-    return { "tweets": results,
-        "hobbies": ["Reading", "Swimming and Running", "Drawing", "Watching Tv (although less so since covid)", "Spending time with my friends"]
-    }
+    #conn.close()
+    context = { "tweets": results, "hobbies": ["Reading", "Swimming and Running", "Drawing",
+                                               "Watching Tv (although less so since covid)",
+                                               "Spending time with my friends"]}
+    response = aiohttp_jinja2.render_template('SatreSite1.html.jinja2', request, context)
+    response.set_cookie('logged_in','yes')
+
+    return response
 
 @aiohttp_jinja2.template('SatreSite2.html.jinja2')
 async def maria2(request):
