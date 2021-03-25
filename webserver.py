@@ -6,6 +6,9 @@ import jinja2
 from random import randint
 import sqlite3
 import requests
+import secrets
+
+logged_in_secret = '--invalid--'
 
     #    with open("templates/hello_world.html.jinja2", "r") as file:
         #contents = file.read()
@@ -16,6 +19,12 @@ import requests
 
 #@aiohttp_jinja2.template('SatreSite1.html.jinja2')
 async def maria1(request):
+    if "logged_in" not in request.cookies:
+        raise web.HTTPFound('/login.html')
+    #is the user logged in?
+    if request.cookies['logged_in'] != logged_in_secret:
+        raise web.HTTPFound('/login.html')
+    print("Is the user logged in? %s" % request.cookies['logged_in'])
     conn = sqlite3.connect('database1.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM tweets ORDER BY likes DESC")  # DESC or ASC
@@ -25,8 +34,7 @@ async def maria1(request):
                                                "Watching Tv (although less so since covid)",
                                                "Spending time with my friends"]}
     response = aiohttp_jinja2.render_template('SatreSite1.html.jinja2', request, context)
-    response.set_cookie('logged_in','yes')
-
+    #response.set_cookie('logged_in','yes')
     return response
 
 @aiohttp_jinja2.template('SatreSite2.html.jinja2')
@@ -44,6 +52,30 @@ async def maria4(request):
     return {
         "cars": ["Honda CRV","Porsche 911","Mazda Miata"]
             }
+
+@aiohttp_jinja2.template('login_page.html.jinja2')
+async def show_login(request):
+    return {}
+
+async def logout(request):
+    global logged_in_secret
+    response = aiohttp_jinja2.render_template('login_page.html.jinja2', request, {})
+    response.cookies['logged_in'] = ''
+    logged_in_secret = '--invalid--'
+    return response
+
+async def login(request):
+    global logged_in_secret
+    data = await request.post()
+    print(data)
+    if(data['username']=='Bill' and data['password']=='1234'):
+        response = web.Response(text="congrats!", status=302, headers={'Location': '/1.html'})
+        #generate a random cookie
+        logged_in_secret = secrets.token_hex()
+        response.cookies['logged_in'] = logged_in_secret
+        return response
+    else:
+        raise web.HTTPFound('/login.html')
 
 def get_location(ip_address):
     api_key = "fd0329babd7f4167ca8ff84646e1bfc2"
@@ -66,7 +98,6 @@ async def add_tweet(request):
     conn = sqlite3.connect('database1.db')
     cursor = conn.cursor()
     cursor.execute("INSERT INTO tweets (content, likes, location) VALUES (?,0,?)", (content,user_location))
-    #cursor.execute("UPDATE tweets SET location=?", (user_location,))
     conn.commit()
     print("The user tweeted %s" % data['content'])
     raise web.HTTPFound('/')
@@ -104,6 +135,9 @@ def main():
                     web.get('/2.html', maria2),
                     web.get('/3.html', maria3),
                     web.get('/4.html', maria4),
+                    web.get('/login.html', show_login),
+                    web.post('/login', login),
+                    web.get('/logout', logout),
                     web.post('/tweet',add_tweet),
                     web.get('/like', like),
                     web.get('/like.json',like_json),
