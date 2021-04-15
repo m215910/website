@@ -1,8 +1,15 @@
-CREATE TABLE "tweets" (
+CREATE TABLE IF NOT EXISTS "tweets" (
 	"content"	TEXT NOT NULL,
 	"timestamp"	INTEGER,
 	"likes"	INTEGER,
 	"location"	TEXT,
 	"id"	INTEGER NOT NULL UNIQUE,
 	PRIMARY KEY("id" AUTOINCREMENT)
+);
+
+CREATE TABLE IF NOT EXISTS "users" (
+    "username" TEXT NOT NULL UNIQUE,
+    "password" TEXT,
+    "cookie" TEXT,
+    "salt" TEXT
 );

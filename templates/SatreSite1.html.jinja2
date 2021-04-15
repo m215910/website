@@ -60,6 +60,7 @@
 
  <body>
   <h1 id = "title"> All Things Maria </h1>
+  <a href="/login.html">Log in</a>
   <a href="/logout">Log out</a>
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v10.0" nonce="T6OPV5WT"></script>
@@ -72,6 +73,9 @@
          <span class="btn btn-primary like-btn" data-tweet-id="{{ tweet[4] }}">
             Like!
          </span>
+         {% if user_loggedin == 1%}
+             <a  class="btn btn-primary delete-btn" href="/delete?id={{ tweet[4] }}">Delete!</a>
+         {% endif %}
          <span class = "text-primary" id="tweet-like-count-{{ tweet[4] }}">
             {{ tweet[2] }}
          </span>
